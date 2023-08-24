@@ -15,5 +15,13 @@ body {
 
 .grid {
   background-color: rgb(184, 184, 184);
-  border: 1px dotted black; 
+  border: 1px dotted rgb(99, 99, 99); 
+}
+
+.settings {
+  display: flex;
+}
+
+button {
+  padding: 0px;
 }
