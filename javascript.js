@@ -47,7 +47,8 @@ erasor.addEventListener('click', ()=> {
 })
 
 penColor.addEventListener('click', (event)=>{
-  colorWheel.click();
+  erasorOn = false;
+  colorValue = hexToRgb(colorWheel.value);
 });
 
 colorWheel.addEventListener('change', (event) => {
@@ -67,15 +68,19 @@ function hexToRgb(hex){
 
 
 //functions to handle tile color changes
+
+//If the erasor isn't selected then check if the tile has already been colored
+//with the currently selected color. If so check if shader is on, otherwise only update brightness.
+//If the tile hasn't been colored yet then color the tile and set status to colored
 function colorTile(event) {
   const tile = event.currentTarget;
   if(!erasorOn){
     if(tile.getAttribute('data-value') && tile.style['background-color'] == colorValue){
       if(shaderOn){
         shade(tile);
-      } else {
-        return;
-      }
+      } else{
+        tile.style['filter'] = `brightness(1)`;
+      } 
     } else{
       tile.style['background-color'] = `${colorValue}`;
       tile.style['filter'] = `brightness(1)`;
