@@ -3,6 +3,7 @@ let dimension = createGrid(8);
 let grid = document.querySelectorAll('.grid');
 const dimensionSelector = document.querySelector(`#resolution`);
 
+//handle creation and manipulation of grid
 dimensionSelector.addEventListener('change', () => {
   dimension = dimensionSelector.value;
   deleteGrid();
@@ -21,18 +22,24 @@ function createGrid(dimension){
     }
   }
 }
-
 function deleteGrid(){
   while(container.firstChild) {
     container.removeChild(container.lastChild);
   }
 }
 
+//functions to handle current draw options used 
 const penColor = document.querySelector('#pen');
 const colorWheel = document.querySelector('#color-wheel')
 let colorValue = `rgb(0, 0, 0)`;
 const erasor = document.querySelector('#erasor');
 let erasorOn = false;
+const shader = document.querySelector('#shading');
+let shaderOn = false;
+
+shader.addEventListener('change', ()=> {
+  shaderOn ? shaderOn = false: shaderOn = true;
+})
 
 erasor.addEventListener('click', ()=> {
   colorValue = 'rgb(184, 184, 184)';
@@ -48,10 +55,8 @@ colorWheel.addEventListener('change', (event) => {
   colorValue = hexToRgb(event.target.value);
 })
 
-
 function hexToRgb(hex){
-  hex = hex.replace('#', '');
-  
+  hex = hex.replace('#', ''); 
   // Extract individual RGB components
   const r = parseInt(hex.substring(0, 2), 16);
   const g = parseInt(hex.substring(2, 4), 16);
@@ -60,13 +65,20 @@ function hexToRgb(hex){
   return `rgb(${r}, ${g}, ${b})`;
 }
 
+
+//functions to handle tile color changes
 function colorTile(event) {
   const tile = event.currentTarget;
   if(!erasorOn){
     if(tile.getAttribute('data-value') && tile.style['background-color'] == colorValue){
-      shade(tile);
+      if(shaderOn){
+        shade(tile);
+      } else {
+        return;
+      }
     } else{
       tile.style['background-color'] = `${colorValue}`;
+      tile.style['filter'] = `brightness(1)`;
       tile.setAttribute('data-value', `1`);
     }
   } else{
@@ -85,7 +97,7 @@ function shade(tile){
   }
 }
 
-//default drag behavior ruins some functionality
+//mouse handling functions
 window.addEventListener('dragstart', (event) => {
   event.preventDefault();
 })
