@@ -30,31 +30,40 @@ function deleteGrid(){
 
 //functions to handle current draw options used 
 const penColor = document.querySelector('#pen');
-const colorWheel = document.querySelector('#color-wheel')
+const colorWheel = document.querySelector('#color-wheel');
+const colorContainer = document.querySelector('#color-container');
 let colorValue = `rgb(0, 0, 0)`;
 const erasor = document.querySelector('#erasor');
 let erasorOn = false;
 const shader = document.querySelector('#shading');
+const shadingContainer = document.querySelector('#shading-container');
 let shaderOn = false;
 
 shader.addEventListener('change', ()=> {
   shaderOn ? shaderOn = false: shaderOn = true;
+});
+
+shadingContainer.addEventListener('click', ()=> {
+  shader.click();
 })
 
 erasor.addEventListener('click', ()=> {
   colorValue = 'rgb(184, 184, 184)';
   erasorOn = true;
-})
+});
 
 penColor.addEventListener('click', (event)=>{
   erasorOn = false;
   colorValue = hexToRgb(colorWheel.value);
 });
+colorContainer.addEventListener('click', (event)=>{
+  colorWheel.click();
+});
 
 colorWheel.addEventListener('change', (event) => {
   erasorOn = false;
   colorValue = hexToRgb(event.target.value);
-})
+});
 
 function hexToRgb(hex){
   hex = hex.replace('#', ''); 

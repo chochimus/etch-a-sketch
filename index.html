@@ -11,21 +11,28 @@
 <body>
   <div class="container"></div>
   <div class="settings">
-    <div>
-      <input type="color" id="color-wheel" value="#000000"/>
+    <div class="selectors">
+      <div class="color-container" id="color-container">
+        <input type="color" id="color-wheel" class="color-style" value="#000000" name="color-label"/>
+        <label for="color-label">Color</label>
+      </div>
       <button id="pen">Pen</button>
+      <button id="erasor">Erasor</button>
     </div>
-    <button id="erasor">Erasor</button>
-    <select id="resolution">
-      <option value="8">Select a pixel resolution</option>
-      <option value="16">basic 16x16</option>
-      <option value="32">medium 32x32</option>
-      <option value="64">high 64x64</option>
-    </select>
+    <div class="extra-options">
+      <select id="resolution" class="resolution-menu">
+        <option value="8">default 8x8</option>
+        <option value="16">low 16x16</option>
+        <option value="32">medium 32x32</option>
+        <option value="64">high 64x64</option>
+      </select>
+      <div id="shading-container" class="shading-box">
+        <input type="checkbox" id="shading" class="shading-style" name="shader">
+        <label for="shader">Shader</label>
+      </div>
+    </div>
   </div>
-  <div class="extra-options">
-    <input type="checkbox" id="shading" name="shader">
-    <label for="shader">Shader</label>
-  </div>
+  <h1>Etch-a-sketch</h1>
+  <p>by chochimus</p>
 </body>
 </html>
